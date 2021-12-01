@@ -4,15 +4,64 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Todo List</title>
 </head>
 <body>
     <nav class='navStyle'>
-        <h1>
-            Todo List
-        </h1>
+        <div class="navContent">
+            <ul>
+                <li>TodoList</li>
+
+                <div class="listContent">
+                    <li>Today</li>
+                    <i class="fas fa-calendar-day"></i>
+                </div>
+
+                <div class="listContent">
+                    <li>Week</li>
+                    <i class="fas fa-calendar-week"></i>
+                </div>
+
+                <div class="listContent">
+                    <li>Month</li>
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
+
+                <div class="listContent">
+                    <li>Year</li>
+                    <i class="fas fa-calendar"></i>
+                </div>
+            </ul>
+        </div>
+
+        <div class="hamburger">
+            <i class="fas fa-bars"></i>
+        </div>
+
+        <div class="mobileMenu">
+            <div class="listContent">
+                <li>Today</li>
+                <i class="fas fa-calendar-day"></i>
+            </div>
+
+            <div class="listContent">
+                <li>Week</li>
+                <i class="fas fa-calendar-week"></i>
+            </div>
+
+            <div class="listContent">
+                <li>Month</li>
+                <i class="fas fa-calendar-alt"></i>
+            </div>
+
+            <div class="listContent">
+                <li>Year</li>
+                <i class="fas fa-calendar"></i>
+            </div>
+        </div>
     </nav>
 
+    <script src="https://kit.fontawesome.com/1c4659f5c2.js" crossorigin="anonymous"></script>
     <script src='main.js'></script>
 </body>
 </html>

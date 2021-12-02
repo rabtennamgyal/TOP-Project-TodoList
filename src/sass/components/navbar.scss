@@ -21,7 +21,6 @@
             :first-child {
                 margin: 0 1rem;
                 font-size: 4rem;
-                font-family: Indie Flower, monospace, sans-serif;
             }
 
             .listContent {
@@ -48,6 +47,7 @@
     }
 
     .hamburger {
+        cursor: pointer;
         width: 20%;
         justify-content: flex-end;
         align-items: center;
@@ -108,7 +108,6 @@
                 cursor: pointer;
                 list-style: none;
                 font-size: 2rem;
-                font-family: Indie Flower, monospace, sans-serif;
             }
 
             i {

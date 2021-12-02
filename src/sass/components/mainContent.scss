@@ -1,7 +1,7 @@
 main {
     display: grid;
     grid-template-columns: 1fr 3fr;
-    min-height: 40rem;
+    min-height: 47.5rem;
     max-height: auto;
 
     .sideBar {
@@ -63,26 +63,117 @@ main {
         }
 
         .divTwo {
-            border: solid #000;
 
-            #addList {
-                margin: 2rem 3rem;
-                height: 3rem;
-                width: 10rem;
-                border: none;
-                border-radius: 5rem;
-                background: none;
-                font-size: 1.6rem;
-                cursor: pointer;
+            .listContainer {
+                display: none;
+                flex-direction: column;
+                min-height: 0;
+                max-height: auto;
+                padding: 10px;
 
-                &:hover {
-                    font-size: 1.8rem;
-                    transition: 0.7s ease-in-out;
+                .newBoxStyle {
+                    display: flex;
+                    justify-content: space-around;
+                    align-items: center;
+                    height: 6rem;
+                    border-radius: 10px;
+                    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+                    padding: 5px;
+
+                    .newListStyle {
+                        display: grid;
+                        place-items: center;
+                        font-size: 2rem;
+                        font-family: 'Times New Roman', Times, serif, sans-serif;
+                        color: #000;
+                        height: 4rem;
+                        width: 10rem;
+                        border-radius: 10px;
+                        box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+                    }
+
+                    .newDescStyle {
+                        border: solid;
+                        width: 10rem;
+                    }
                 }
             }
 
-            .inputForm {
-                display: none;
+            .divTwoTwo {
+                #addList {
+                    font-family: Indie Flower, cursive, sans-serif;
+                    font-size: 2rem;
+                    margin: 2rem 3rem;
+                    height: 3rem;
+                    width: 10rem;
+                    border: none;
+                    border-radius: 5rem;
+                    background: none;
+                    cursor: pointer;
+    
+                    &:hover {
+                        transform: scale(1.1);
+                        transition: 0.7s ease-in-out;
+                    }
+                }
+    
+                .inputForm {
+                    display: none;
+                    place-items: center;
+    
+                    .inputFormContent {
+                        border: none;
+                        border-radius: 1rem;
+                        background: #dfdfdf;
+                        width: 90%;
+                        display: grid;
+                        padding: 20px;
+    
+                        #input {
+                            height: 4rem;
+                            border: none;
+                            border-radius: 5rem;
+                            font-family: cursive, monospace, sans-serif;
+                            font-size: 2rem;
+                        }
+    
+                        .btns {
+                            margin: 1rem 0 0 0;
+                            display: flex;
+                            justify-content: space-between;
+    
+                            button {
+                                font-family: Indie Flower, cursive, sans-serif;
+                                font-size: 2rem;
+                                cursor: pointer;
+                                border: none;
+                                border-radius: 3rem;
+                                height: 4rem;
+                                width: 40%;
+                            }
+    
+                            #addBtn {
+                                background: #85ff85d8;
+    
+                                &:hover {
+                                    background: #46ff46;
+                                    transform: scale(1.1);
+                                    transition: 0.7s ease-in-out;
+                                }
+                            }
+    
+                            #delBtn {
+                                background: #ff0000b2;
+    
+                                &:hover {
+                                    background: #ff0000;
+                                    transform: scale(1.1);
+                                    transition: 0.7s ease-in-out;
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
     }

@@ -1,8 +1,8 @@
 // This module will take care of all the DOM related functionality.
-import { createTodo, deleteTodo, todoArray } from "./Factory";
+import { createTodo, deleteTodo, todoArray, saveInputInfo } from "./Factory";
 import { cleanInput } from "./HelperFunctions";
 
-// Create Todo Dom element
+
 const addBtn = document.getElementById('addList')
 
 function renderList(title, description, priority, dueDate) {
@@ -11,11 +11,22 @@ function renderList(title, description, priority, dueDate) {
     const div = document.createElement('div')
     div.classList.add('todoStyle')
     div.innerHTML = `
-    <p>${title}</p>
-    <p>${description}</p>
-    <p>${priority}</p>
-    <p>${dueDate}</p>
-    <button class='delete' id='deleteTodo'><i class="far fa-trash-alt"></i></button>
+    <div class='divOne'>
+        <div class='divOneOne'>
+            <p>${title}</p>
+            <p>${priority}</p>
+            <p>${dueDate}</p>
+        </div>
+
+        <div class='divOneTwo'>
+            <button class='delete' id='deleteTodo'><i class="far fa-trash-alt"></i></button>
+            <button class='edit' id='editTodo'><i class="far fa-edit"></i></button>
+        </div>
+    </div>
+    
+    <div class='divTwo'>
+        <p>${description}</p>
+    </div>
     `
 
     div.addEventListener('click', (e) => {
@@ -39,41 +50,12 @@ function createTodoListElement() {
     todoArray.push(todo)
     localStorage.setItem('List', JSON.stringify(todoArray))
     renderList(todo.title, todo.description, todo.priority, todo.dueDate)
-
-    console.log(todoArray)
 }
 
 addBtn.addEventListener('click', () => {
     createTodoListElement()
+    saveInputInfo()
+
+    // It has to be last because it changes the input value to '' / null
     cleanInput()
 })
-
-
-
-// localStorage.clear()
-
-
-
-
-
-
-
-
-
-
-
-
-
-// const title = document.createElement('p')
-// title.textContent = todo.title
-// const description = document.createElement('p')
-// description.textContent = todo.description
-// const priority = document.createElement('p')
-// priority.textContent = todo.priority
-// const dueDate = document.createElement('p')
-// dueDate.textContent = todo.dueDate
-
-// div.appendChild(title)
-// div.appendChild(description)
-// div.appendChild(priority)
-// div.appendChild(dueDate)

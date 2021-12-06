@@ -1,0 +1,62 @@
+@keyframes slideDown {
+    0% {
+        opacity: 0;
+        height: 0rem;
+    }
+
+    100% {
+        opacity: 1;
+        height: 10rem;
+    }
+}
+
+.slideDown {
+    animation: slideDown 200ms ease-in-out forwards;
+}
+
+@keyframes slideUp {
+    0% {
+        opacity: 1;
+        height: 10rem;
+    }
+
+    100% {
+        opacity: 0;
+        height: 0;
+    }
+}
+
+.slideUp {
+    animation: slideUp 200ms ease-in-out forwards;
+}
+
+
+@keyframes slideLeft {
+    0% {
+        grid-template-columns: 22% 78%;
+    }
+
+    100% {
+        grid-template-columns: 0% 100%;
+    }
+}
+
+.slideLeft {
+    animation: slideLeft 0.5s ease-in-out forwards;
+}
+
+
+@keyframes rotateDown {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(90deg);
+    }
+}
+
+.rotateDown {
+    animation: rotateDown 200ms ease-in-out forwards;
+}
+

@@ -198,43 +198,48 @@ main {
                     }
 
                     .divOneTwo {
+                        //opacity: 0;
                         display: flex;
                         justify-content: flex-end;
 
+                        // &:hover {
+                        //     opacity: 1;
+                        // }
+
                         #deleteTodo {
+                            border: .5px solid #000;
                             margin: 0 5px;
                             cursor: pointer;
-                            color: #fff;
                             height: 2rem;
                             width: 2rem;
-                            border: none;
                             border-radius: 5px;
-                            background: #ff0000;
+                            color: #ff0000;
+                            background: #fff;
         
                             i {
                                 font-size: 1rem;
                             }
     
                             &:hover {
-                                border: .5px solid #000;
-                                color: #ff0000;
-                                background: #fff;
+                                border: none;
+                                color: #fff;
+                                background: #ff0000;
                             }
                         }
 
                         #editTodo {
                             cursor: pointer;
-                            color: #fff;
                             height: 2rem;
                             width: 2rem;
-                            border: none;
                             border-radius: 5px;
-                            background: #36d0ff;
+                            color: #36d0ff;
+                            background: #fff;
+                            border: .5px solid #000;
 
                             &:hover {
-                                border: .5px solid #000;
-                                color: #36d0ff;
-                                background: #fff;
+                                border: none;
+                                color: #fff;
+                                background: #36d0ff;
                             }
 
                             i {

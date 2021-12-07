@@ -86,6 +86,20 @@
                         }
                     }
 
+                    #editList {
+                        display: none;
+                        border: none;
+                        margin: 0 1.5rem 0 3rem;
+                        background: #ff4500;
+                        color: #fff;
+
+                        &:hover {
+                            color: #ff4500;
+                            background: #fff;
+                            border: .5px solid #ff4500;
+                        }
+                    }
+
                     #cancelList {
                         outline: none;
                         border: .5px solid #000;

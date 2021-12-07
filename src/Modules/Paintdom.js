@@ -1,9 +1,11 @@
 // This module will take care of all the DOM related functionality.
-import { createTodo, deleteTodo, todoArray, saveInputInfo } from "./Factory";
+import { createTodo, deleteTodo, editTodo, todoArray, saveInputInfo } from "./Factory";
 import { cleanInput } from "./HelperFunctions";
 
 
 const addBtn = document.getElementById('addList')
+const editBtn = document.getElementById('editList')
+
 
 function renderList(title, description, priority, dueDate) {
     const mainInbox = document.getElementById('InboxContainer')
@@ -36,6 +38,18 @@ function renderList(title, description, priority, dueDate) {
         }
     })
 
+    div.addEventListener('click', (e) => {
+        if (e.target.classList.contains('edit')) {
+            saveInputInfo(e)
+            const module = document.querySelector('.module')
+            module.style.display = 'grid'
+            const add = document.getElementById('addList')
+            const edit = document.getElementById('editList')
+            add.style.display = 'none'
+            edit.style.display = 'block'
+        }
+    })
+
     mainInbox.appendChild(div)
 }
 
@@ -52,10 +66,26 @@ function createTodoListElement() {
     renderList(todo.title, todo.description, todo.priority, todo.dueDate)
 }
 
+// function createEditedTodoListElement() {
+//     console.log('hi')
+// }
+
+
 addBtn.addEventListener('click', () => {
     createTodoListElement()
-    saveInputInfo()
-
-    // It has to be last because it changes the input value to '' / null
     cleanInput()
 })
+
+
+editBtn.addEventListener('click', (e) => {
+    //createEditedTodoListElement()
+    editTodo(e)
+    cleanInput()
+})
+
+
+
+
+
+
+export { renderList }

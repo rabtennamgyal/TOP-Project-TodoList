@@ -52,17 +52,27 @@ const plusIcon = document.getElementById('plusIcon')
 const newListBtn = document.getElementById('newListBtn')
 // Close Modal Buttons
 const add = document.getElementById('addList')
+const edit = document.getElementById('editList')
 const cancel = document.getElementById('cancelList')
 
+// plusIcon & newListBtn are two different btns but serves the same purpose.
 plusIcon.addEventListener('click', () => {
     module.style.display = 'grid'
+    add.style.display = 'block'
+    edit.style.display = 'none'
 })
 
 newListBtn.addEventListener('click', () => {
     module.style.display = 'grid'
+    add.style.display = 'block'
+    edit.style.display = 'none'
 })
 
 add.addEventListener('click', () => {
+    module.style.display = 'none'
+})
+
+edit.addEventListener('click', () => {
     module.style.display = 'none'
 })
 

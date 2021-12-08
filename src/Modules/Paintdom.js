@@ -76,16 +76,24 @@ function createTodoListElement() {
 
 
 function createEditedTodoElement() {
+    const Box = document.getElementById('InboxContainer')
+    const oldList = Box.childNodes[index + 1]
+
     // 1. Change the list details in the todoArray & the local Storage
     editTodo()    
-    // 3. Delete the old dom element of the list
+    // 2. Delete the old dom element of the list
     deleteListElement()
-    // 2. Render the dom element 
+
+    // 3. Render the dom element 
     const title = document.getElementById('todoTitle').value
     const description = document.getElementById('todoDescription').value
     const priority = document.getElementById('todoPriority').value
     const dueDate = document.getElementById('todoDueDate').value
     renderList(title, description, priority, dueDate)
+
+    const newList = Box.childNodes[(todoArray.length - 1) + 1]
+
+    Box.replaceChild(newList, oldList)
 }
 
 

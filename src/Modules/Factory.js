@@ -1,7 +1,6 @@
 // This Module will take care of all the application logics 🔮
-
 import Todo from "./TodoList"
-// import { renderList } from "./PaintDOM"
+
 
 
 // function to create new todo list
@@ -35,23 +34,25 @@ function deleteTodo(e) {
 
 
 // function to edit todo list 
-function editTodo(e) {
-    todoArray = JSON.parse(localStorage.getItem('List'))
-    let x
-    let a = e.target.parentNode.parentNode.parentNode.childNodes[3].childNodes[1].childNodes[3].value
+let index // the index will be set by the saveInputInfo
 
-    for (let i = 0; i < todoArray.length; i++) {
-        if (todoArray[i].title === a) {
-            let x = todoArray.indexOf(todoArray[i])
-            console.log(x)
-        }
-    }
+function editTodo() {
+    todoArray = localStorage.getItem('List') ? JSON.parse(localStorage.getItem('List')) : []
 
-    console.log(a)
+    const title = document.getElementById('todoTitle').value
+    const description = document.getElementById('todoDescription').value
+    const priority = document.getElementById('todoPriority').value
+    const dueDate = document.getElementById('todoDueDate').value
+
+    let newList = new Todo(title, description, priority, dueDate)
+
+    todoArray.splice(index, 1, newList)
+    localStorage.setItem('List', JSON.stringify(todoArray))
 }
 
 
 // function to save Input info in case the person might want to edit it later.
+// This function also gets the Index of the list of be edited.
 function saveInputInfo(e) {
     let title = document.getElementById('todoTitle')
     let description = document.getElementById('todoDescription')
@@ -63,6 +64,7 @@ function saveInputInfo(e) {
 
     for (let i = 0; i < todoArray.length; i++) {
         if (todoArray[i].title === a) {
+            index = todoArray.indexOf(todoArray[i])
             let a = todoArray[i].title
             let b = todoArray[i].description
             let c = todoArray[i].priority
@@ -81,4 +83,4 @@ function saveInputInfo(e) {
 
 
 
-export { createTodo, deleteTodo, editTodo, todoArray, saveInputInfo }
+export { createTodo, deleteTodo, editTodo, todoArray, saveInputInfo, index }

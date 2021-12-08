@@ -195,6 +195,16 @@ main {
                             font-size: 1.4rem;
                             font-family: Open Sans, cursive, monospace, sans-serif;
                         }
+
+                        :not(:first-child):not(:last-child) {
+                            display: grid;
+                            place-items: center;
+                        }
+
+                        :last-child {
+                            display: grid;
+                            place-items: center;
+                        }
                     }
 
                     .divOneTwo {

@@ -1,12 +1,12 @@
 // This module will take care of all the DOM related functionality.
-import { createTodo, deleteTodo, editTodo, todoArray, saveInputInfo } from "./Factory";
+import { createTodo, deleteTodo, editTodo, todoArray, saveInputInfo, index } from "./Factory";
 import { cleanInput } from "./HelperFunctions";
 
 
 const addBtn = document.getElementById('addList')
 const editBtn = document.getElementById('editList')
 
-
+// Function is render list to the dom. ( creates DOM element )
 function renderList(title, description, priority, dueDate) {
     const mainInbox = document.getElementById('InboxContainer')
 
@@ -53,6 +53,14 @@ function renderList(title, description, priority, dueDate) {
     mainInbox.appendChild(div)
 }
 
+
+// Function to delete list element from the DOM.
+function deleteListElement() {
+    const mainInbox = document.getElementById('InboxContainer')
+    mainInbox.removeChild(mainInbox.childNodes[index + 1])
+}
+
+
 // This function will make the list appears indefinitely until deleted
 todoArray.forEach(el => {
     renderList(el.title, el.description, el.priority, el.dueDate)
@@ -66,9 +74,19 @@ function createTodoListElement() {
     renderList(todo.title, todo.description, todo.priority, todo.dueDate)
 }
 
-// function createEditedTodoListElement() {
-//     console.log('hi')
-// }
+
+function createEditedTodoElement() {
+    // 1. Change the list details in the todoArray & the local Storage
+    editTodo()    
+    // 3. Delete the old dom element of the list
+    deleteListElement()
+    // 2. Render the dom element 
+    const title = document.getElementById('todoTitle').value
+    const description = document.getElementById('todoDescription').value
+    const priority = document.getElementById('todoPriority').value
+    const dueDate = document.getElementById('todoDueDate').value
+    renderList(title, description, priority, dueDate)
+}
 
 
 addBtn.addEventListener('click', () => {
@@ -77,15 +95,10 @@ addBtn.addEventListener('click', () => {
 })
 
 
-editBtn.addEventListener('click', (e) => {
-    //createEditedTodoListElement()
-    editTodo(e)
+editBtn.addEventListener('click', () => {
+    createEditedTodoElement()
     cleanInput()
 })
 
 
 
-
-
-
-export { renderList }

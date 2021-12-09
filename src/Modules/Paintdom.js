@@ -6,7 +6,12 @@ import { cleanInput } from "./HelperFunctions";
 const addBtn = document.getElementById('addList')
 const editBtn = document.getElementById('editList')
 
-// Function is render list to the dom. ( creates DOM element )
+
+todoArray.forEach(el => {
+    renderList(el.title, el.description, el.priority, el.dueDate)
+})
+
+
 function renderList(title, description, priority, dueDate) {
     const mainInbox = document.getElementById('InboxContainer')
 
@@ -54,17 +59,13 @@ function renderList(title, description, priority, dueDate) {
 }
 
 
-// Function to delete list element from the DOM.
-function deleteListElement() {
+function deleteAllElement() {
     const mainInbox = document.getElementById('InboxContainer')
-    mainInbox.removeChild(mainInbox.childNodes[index + 1])
+
+    while(mainInbox.hasChildNodes()) {
+        mainInbox.removeChild(mainInbox.firstChild)
+    }
 }
-
-
-// This function will make the list appears indefinitely until deleted
-todoArray.forEach(el => {
-    renderList(el.title, el.description, el.priority, el.dueDate)
-})
 
 
 function createTodoListElement() {
@@ -76,24 +77,16 @@ function createTodoListElement() {
 
 
 function createEditedTodoElement() {
-    const Box = document.getElementById('InboxContainer')
-    const oldList = Box.childNodes[index + 1]
-
     // 1. Change the list details in the todoArray & the local Storage
     editTodo()    
-    // 2. Delete the old dom element of the list
-    deleteListElement()
 
-    // 3. Render the dom element 
-    const title = document.getElementById('todoTitle').value
-    const description = document.getElementById('todoDescription').value
-    const priority = document.getElementById('todoPriority').value
-    const dueDate = document.getElementById('todoDueDate').value
-    renderList(title, description, priority, dueDate)
+    // 2. Delete all the dom elements ( so that the new element doesn't get put at the end )
+    deleteAllElement()
 
-    const newList = Box.childNodes[(todoArray.length - 1) + 1]
-
-    Box.replaceChild(newList, oldList)
+    // 3. Render all the dom elements again ( the line up is already taken care by the 1. editTodo() function )
+    todoArray.forEach(el => {
+        renderList(el.title, el.description, el.priority, el.dueDate)
+    })    
 }
 
 

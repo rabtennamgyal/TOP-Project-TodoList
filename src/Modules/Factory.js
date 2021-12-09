@@ -2,8 +2,6 @@
 import Todo from "./TodoList"
 
 
-
-// function to create new todo list
 function createTodo() {
     const title = document.getElementById('todoTitle').value
     const description = document.getElementById('todoDescription').value
@@ -13,11 +11,10 @@ function createTodo() {
     return new Todo(title, description, priority, dueDate)
 }
 
-// Array to store all the todo lists
+
 let todoArray = localStorage.getItem('List') ? JSON.parse(localStorage.getItem('List')) : []
 
 
-// function to delete todo list
 function deleteTodo(e) {
     todoArray = JSON.parse(localStorage.getItem('List'))
     let parent = e.target.parentNode.parentNode
@@ -33,8 +30,8 @@ function deleteTodo(e) {
 }
 
 
-// function to edit todo list 
-let index // the index will be set by the saveInputInfo
+let index
+
 
 function editTodo() {
     todoArray = localStorage.getItem('List') ? JSON.parse(localStorage.getItem('List')) : []
@@ -51,8 +48,6 @@ function editTodo() {
 }
 
 
-// function to save Input info in case the person might want to edit it later.
-// This function also gets the Index of the list of be edited.
 function saveInputInfo(e) {
     let title = document.getElementById('todoTitle')
     let description = document.getElementById('todoDescription')
@@ -77,10 +72,6 @@ function saveInputInfo(e) {
         }
     }
 }
-
-
-
-
 
 
 export { createTodo, deleteTodo, editTodo, todoArray, saveInputInfo, index }

@@ -18,7 +18,7 @@ arrow.addEventListener('click', () => {
 })
 
 
-// Side bar animation
+// Side bar animation ( for desktop )
 const navSpan = document.getElementById('spann')
 
 navSpan.addEventListener('click', () => {
@@ -34,6 +34,20 @@ navSpan.addEventListener('click', () => {
         mainContent.classList.add('slideLeft')
         sideBarOne.style.display = 'none'
         sideBarTwo.style.display = 'none'
+    }
+})
+
+
+// Side bar animation ( for mobile )
+const spanPhone = document.getElementById('spanPhone')
+
+spanPhone.addEventListener('click', () => {
+    const sideBar = document.querySelector('.sideBar')
+
+    if (sideBar.classList.contains('slideLeftPhone')) {
+        sideBar.classList.remove('slideLeftPhone')
+    } else {
+        sideBar.classList.add('slideLeftPhone')
     }
 })
 

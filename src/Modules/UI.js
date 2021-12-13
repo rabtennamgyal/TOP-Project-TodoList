@@ -61,13 +61,19 @@ todaySvg.textContent = date.getUTCDate()
 
 // Open & Close Module
 const module = document.querySelector('.module')
+const module2 = document.querySelector('.module2')
 // Open Modal Buttons
 const plusIcon = document.getElementById('plusIcon')
-const newListBtn = document.getElementById('newListBtn')
+// const newListBtn = document.getElementById('newListBtn')
+// const newListBtn2 = document.getElementById('newListBtn2')
 // Close Modal Buttons
 const add = document.getElementById('addList')
 const edit = document.getElementById('editList')
 const cancel = document.getElementById('cancelList')
+
+const add2 = document.getElementById('addList2')
+const edit2 = document.getElementById('editList2')
+const cancel2 = document.getElementById('cancelList2')
 
 // plusIcon & newListBtn are two different btns but serves the same purpose.
 plusIcon.addEventListener('click', () => {
@@ -76,21 +82,53 @@ plusIcon.addEventListener('click', () => {
     edit.style.display = 'none'
 })
 
-newListBtn.addEventListener('click', () => {
-    module.style.display = 'grid'
-    add.style.display = 'block'
-    edit.style.display = 'none'
-})
+
+if (document.getElementById('newListBtn')) {
+    const btn = document.getElementById('newListBtn') 
+    btn.addEventListener('click', () => {
+        module.style.display = 'grid'
+        add.style.display = 'block'
+        edit.style.display = 'none'
+    })
+}
+
+if (document.getElementById('newListBtn2')) {
+    const btn = document.getElementById('newListBtn2') 
+    btn.addEventListener('click', () => {
+        module2.style.display = 'grid'
+        add2.style.display = 'block'
+        edit2.style.display = 'none'
+    })
+} 
+
 
 add.addEventListener('click', () => {
     module.style.display = 'none'
 })
 
+
 edit.addEventListener('click', () => {
     module.style.display = 'none'
 })
+
 
 cancel.addEventListener('click', () => {
     module.style.display = 'none'
     cleanInput()
 })
+
+add2.addEventListener('click', () => {
+    module2.style.display = 'none'
+})
+
+
+edit2.addEventListener('click', () => {
+    module2.style.display = 'none'
+})
+
+
+cancel2.addEventListener('click', () => {
+    module2.style.display = 'none'
+    cleanInput()
+})
+

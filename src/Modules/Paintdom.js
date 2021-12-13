@@ -30,6 +30,7 @@ function showPage(el) {
     content.innerHTML = ''
     const curPage = document.createElement('div')
     curPage.classList.add('pageStyle')
+    curPage.classList.add('pageStyle2')
     curPage.innerHTML = el
     content.appendChild(curPage)
 }
@@ -173,7 +174,6 @@ function renderList2(title, description, priority, dueDate) {
         mainInbox.appendChild(div)
     }
 }
-
 
 
 function deleteAllElement() {

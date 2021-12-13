@@ -21,7 +21,7 @@ function renderInboxPage() {
                 </g>
                 </g>
             </svg>
-            <h1>
+            <h1 class='random1'>
                 Add List
             </h1>
         </div>
@@ -58,7 +58,7 @@ function renderTodayPage() {
                     </g>
                     </g>
                 </svg>
-                <h1>
+                <h1 class='random2'>
                     Add List
                 </h1>
             </div>

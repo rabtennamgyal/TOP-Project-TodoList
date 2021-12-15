@@ -64,8 +64,7 @@ const module = document.querySelector('.module')
 const module2 = document.querySelector('.module2')
 // Open Modal Buttons
 const plusIcon = document.getElementById('plusIcon')
-// const newListBtn = document.getElementById('newListBtn')
-// const newListBtn2 = document.getElementById('newListBtn2')
+
 // Close Modal Buttons
 const add = document.getElementById('addList')
 const edit = document.getElementById('editList')
@@ -75,6 +74,7 @@ const add2 = document.getElementById('addList2')
 const edit2 = document.getElementById('editList2')
 const cancel2 = document.getElementById('cancelList2')
 
+
 // plusIcon & newListBtn are two different btns but serves the same purpose.
 plusIcon.addEventListener('click', () => {
     module.style.display = 'grid'
@@ -83,23 +83,34 @@ plusIcon.addEventListener('click', () => {
 })
 
 
-if (document.getElementById('newListBtn')) {
-    const btn = document.getElementById('newListBtn') 
-    btn.addEventListener('click', () => {
-        module.style.display = 'grid'
-        add.style.display = 'block'
-        edit.style.display = 'none'
-    })
+function setBtnOne() {
+    if(document.getElementById('newListBtn')) {
+        const btn = document.getElementById('newListBtn') 
+        btn.addEventListener('click', () => {
+            module.style.display = 'grid'
+            add.style.display = 'block'
+            edit.style.display = 'none'
+        })
+    }
 }
 
-if (document.getElementById('newListBtn2')) {
-    const btn = document.getElementById('newListBtn2') 
-    btn.addEventListener('click', () => {
-        module2.style.display = 'grid'
-        add2.style.display = 'block'
-        edit2.style.display = 'none'
-    })
-} 
+
+function setBtnTwo() {
+    if (document.getElementById('newListBtn2')) {
+        const btn = document.getElementById('newListBtn2') 
+        btn.addEventListener('click', () => {
+            module2.style.display = 'grid'
+            add2.style.display = 'block'
+            edit2.style.display = 'none'
+        })
+    }
+}
+
+
+setInterval(() => {
+    setBtnOne()
+    setBtnTwo()
+})
 
 
 add.addEventListener('click', () => {
@@ -132,3 +143,28 @@ cancel2.addEventListener('click', () => {
     cleanInput()
 })
 
+// new project button
+const module3 = document.querySelector('.sideBarModule')
+const newProject = document.getElementById('addProject')
+
+newProject.addEventListener('click', () => {
+    module3.style.display = 'none'
+})
+
+// For opening SideBar Project Module 
+const newProjectIcon = document.getElementById('newProjectIcon')
+const cancelProject = document.getElementById('cancelProject')
+
+newProjectIcon.addEventListener('click', () => {
+    const projectModule = document.querySelector('.sideBarModule')
+    const projectInput = document.getElementById('projectName')
+    projectModule.style.display = 'grid'
+    projectInput.value = ''
+})
+
+cancelProject.addEventListener('click', () => {
+    const projectModule = document.querySelector('.sideBarModule')    
+    const projectInput = document.getElementById('projectName')
+    projectModule.style.display = 'none'
+    projectInput.value = ''
+})

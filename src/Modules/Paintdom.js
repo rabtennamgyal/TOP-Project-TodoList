@@ -1,21 +1,36 @@
 // This module will take care of all the DOM related functionality.
-import { createTodo, deleteTodo, editTodo, todoArray, saveInputInfo, index, createTodo2, dayArray, deleteDayList, editDayList, saveInputInfo2} from "./Factory";
-import { renderInboxPage, renderTodayPage } from './View'
+import { 
+    createTodo, deleteTodo, editTodo, todoArray, saveInputInfo, 
+    index, createTodo2, dayArray, deleteDayList, editDayList, saveInputInfo2,
+    projectPagesArray, projectListArray, createNewProject, deleteProject
+} from "./Factory";
+import { renderInboxPage, renderTodayPage, renderProjectPage, renderPages} from './View'
 import { cleanInput } from "./HelperFunctions";
 
-// Buttons for Inbox, Today & Projects Page.
+
+// Buttons for (Pages) Inbox, Today & Projects Page.
 const inboxBtn = document.querySelector('.inboxContainer')
 const todayBtn = document.querySelector('.dayContainer')
+const projectBtn = document.querySelector('.projectContainer')
 
-// Buttons for List Creation and Deletion
+
+// Buttons for (List) List Creation & Deletion
 const addBtn = document.getElementById('addList')
 const editBtn = document.getElementById('editList')
 const addBtn2 = document.getElementById('addList2')
 const editBtn2 = document.getElementById('editList2')
 
 
-let currentPage = localStorage.getItem('Page')
+// Buttons for (Project) Creation & Deletion
+const newProject = document.getElementById('addProject')
+// Delete Project Function is called on Project List cuz the x element is created dynamically.
+const projectList = document.querySelector('.projectList')
 
+
+
+// 1.
+// Pages Code
+let currentPage = localStorage.getItem('Page')
 
 function renderPage(page) {
     const content = document.querySelector('.content')
@@ -31,6 +46,7 @@ function showPage(el) {
     const curPage = document.createElement('div')
     curPage.classList.add('pageStyle')
     curPage.classList.add('pageStyle2')
+    curPage.classList.add('AStyle')
     curPage.innerHTML = el
     content.appendChild(curPage)
 }
@@ -39,31 +55,8 @@ function showPage(el) {
 showPage(currentPage)
 
 
-window.addEventListener('load', () => {
-    if (!localStorage.getItem('Page')) {
-        renderPage(renderInboxPage())
-    } else {
-        return
-    }
-})
-
-
-inboxBtn.addEventListener('click', () => {
-    renderPage(renderInboxPage())
-    todoArray.forEach(el => {
-        renderList(el.title, el.description, el.priority, el.dueDate)
-    })
-})
-
-
-todayBtn.addEventListener('click', () => {
-    renderPage(renderTodayPage())
-    dayArray.forEach(el => {
-        renderList2(el.title, el.description, el.priority, el.dueDate)
-    })
-})
-
-
+// 2.
+// List Code
 todoArray.forEach(el => {
     renderList(el.title, el.description, el.priority, el.dueDate)
 })
@@ -202,7 +195,6 @@ function deleteAllElement2() {
 }
 
 
-
 function createTodoListElement() {
     const todo = createTodo()
     todoArray.push(todo)
@@ -247,6 +239,37 @@ function createEditedTodoElement2() {
 }
 
 
+
+// 3. Project Code
+// Everything to do with projects
+
+
+function renderProjectListElement(value) {
+    const main = document.querySelector('.projectList')
+
+    const list = document.createElement('div')
+    list.classList.add('list')
+    const divOne = document.createElement('p')
+    divOne.textContent = value
+    const divTwo = document.createElement('p')
+    divTwo.classList.add('deleteProject')
+    divTwo.innerHTML = '<h1 class="deleteProjectBtn">x</h1>'
+    // </i>'
+    list.appendChild(divOne)
+    list.appendChild(divTwo)
+    
+    main.appendChild(list)
+}
+
+
+projectListArray.forEach(el => {
+    renderProjectListElement(el)
+})
+
+
+
+
+// 1. List Event Listeners
 addBtn.addEventListener('click', (e) => {
     createTodoListElement()
     cleanInput()
@@ -270,3 +293,53 @@ editBtn2.addEventListener('click', (e) => {
     cleanInput()
 })
 
+
+// 2. Page Event Listeners
+window.addEventListener('load', () => {
+    if (!localStorage.getItem('Page')) {
+        renderPage(renderInboxPage())
+    } else {
+        return
+    }
+})
+
+
+inboxBtn.addEventListener('click', () => {
+    renderPage(renderInboxPage())
+    todoArray.forEach(el => {
+        renderList(el.title, el.description, el.priority, el.dueDate)
+    })
+})
+
+
+todayBtn.addEventListener('click', () => {
+    renderPage(renderTodayPage())
+    dayArray.forEach(el => {
+        renderList2(el.title, el.description, el.priority, el.dueDate)
+    })
+})
+
+
+projectBtn.addEventListener('click', () => {
+    renderPage(renderProjectPage())
+})
+
+
+// 3. Project Event Listeners
+
+
+newProject.addEventListener('click', () => {
+    const value = document.getElementById('projectName').value
+
+    createNewProject()
+    renderProjectListElement(value)
+})
+
+
+projectList.addEventListener('click', (e) => {
+    if (e.target.classList.contains('deleteProjectBtn')) {
+        const div = e.target.parentNode.parentNode
+        div.parentNode.removeChild(div)
+        deleteProject(e)
+    }
+})

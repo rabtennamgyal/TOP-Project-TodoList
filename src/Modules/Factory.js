@@ -1,7 +1,17 @@
 // This Module takes care of all the application logics 🔮
 import { Todo, Todo2 } from './TodoList'
 
+// Arrays to store different List ( Inbox, Today & Projets )
+let todoArray = localStorage.getItem('List') ? JSON.parse(localStorage.getItem('List')) : [] 
+let dayArray = localStorage.getItem('dayList') ? JSON.parse(localStorage.getItem('dayList')) : []
 
+// Arrays to store all the newly created projects pages
+let projectListArray = localStorage.getItem('ProjectList') ? JSON.parse(localStorage.getItem('ProjectList')) : []
+let projectPagesArray = localStorage.getItem('ProjectPages') ? JSON.parse(localStorage.getItem('ProjectPages')) : []
+
+
+// 1.
+// List Creation & Deletion Starts Here
 function createTodo() {
     const title = document.getElementById('todoTitle').value
     const description = document.getElementById('todoDescription').value
@@ -20,11 +30,6 @@ function createTodo2() {
 
     return new Todo2(title, description, priority, dueDate)
 }
-
-
-let todoArray = localStorage.getItem('List') ? JSON.parse(localStorage.getItem('List')) : [] 
-let dayArray = localStorage.getItem('dayList') ? JSON.parse(localStorage.getItem('dayList')) : []
-
 
 
 function deleteTodo(e) {
@@ -140,7 +145,43 @@ function saveInputInfo2(e) {
         }
     }
 }
+// List Creation & Deletion Ends Here
 
 
+// 2.
+// Project Creation & Deletion Starts Here
+function createNewProject() {
+    const value = document.getElementById('projectName').value
+    // 1. Create the DOM List Element for the Sidebar
+    projectListArray.push(value)
+    localStorage.setItem('ProjectList', JSON.stringify(projectListArray))
 
-export { createTodo, deleteTodo, editTodo, todoArray, saveInputInfo, index, createTodo2, dayArray, deleteDayList, editDayList, saveInputInfo2}
+    // 2. Create the Page for the newly created Project
+        // a.  use the render page function
+        // b.  put it's innerHTML into the local storage
+}
+
+
+function deleteProject(e) {
+    projectListArray = JSON.parse(localStorage.getItem('ProjectList'))
+    let text = e.target.parentNode.parentNode.firstChild.textContent
+
+    // 1. Deleting the DOM List Element
+    for (let i = 0; i < projectListArray.length; i++) {
+        if (projectListArray[i] === text) {
+            let x = projectListArray.indexOf(projectListArray[i])
+            let newArr = projectListArray.splice(x, 1)
+            localStorage.setItem('ProjectList', JSON.stringify(projectListArray))
+        }
+    }
+}
+
+// Project Creation & Deletion Ends Here
+
+
+export { 
+    createTodo, deleteTodo, editTodo, todoArray, saveInputInfo, 
+    index, createTodo2, dayArray, deleteDayList, editDayList, 
+    saveInputInfo2, projectPagesArray, projectListArray,
+    createNewProject, deleteProject
+}

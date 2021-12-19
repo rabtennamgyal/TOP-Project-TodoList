@@ -77,6 +77,16 @@
                         <label for='todoDueDate'>DueDate :</label>
                         <input type="date" id='todoDueDate'>
                     </div>
+
+                    <!-- <div class="inputFive inputContainer">
+                        <label for='todoProject'>Project :</label>
+                        <select id='todoProjects'>
+                            <option value="">Choose Project</option>
+                            <option value="Inbox">Inbox</option>
+                            <option value="Today">Today</option>
+                            <option value="Month">Month</option>
+                        </select>
+                    </div> -->
                 </form>
 
                 <!-- Div Two -->
@@ -91,55 +101,6 @@
                         </button>
     
                         <button id='cancelList'>
-                            Cancel
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="module2">
-            <div class="moduleContent2">
-                <!-- Div One -->
-                <form action="" method="get" class="formTodo2">
-                    <div class="inputOne2 inputContainer">
-                        <label for='todoTitle'>Title :</label>
-                        <input class='inputArea2' type="text" id='todoTitle2'>
-                    </div>
-
-                    <div class="inputTwo2 inputContainer">
-                        <label for='todoDescription'>Description :</label>
-                        <textarea class='inputArea2' id='todoDescription2'></textarea>
-                    </div>
-
-                    <div class="inputThree2 inputContainer">
-                        <label for="todoPriority">Priority :</label>
-                        <select id='todoPriority2'>
-                            <option value=''>Choose your todo's Priority</option>
-                            <option value='Critical'>Critical</option>
-                            <option value='Normal'>Normal</option>
-                            <option value='Low'>Low</option>
-                        </select>
-                    </div>
-
-                    <div class="inputFour2 inputContainer">
-                        <label for='todoDueDate'>DueDate :</label>
-                        <input type="date" id='todoDueDate2'>
-                    </div>
-                </form>
-
-                <!-- Div Two -->
-                <div class="btnContainer2">
-                    <div class="btns">
-                        <button id='addList2'>
-                            Add List
-                        </button>
-
-                        <button id='editList2'>
-                            Edit
-                        </button>
-    
-                        <button id='cancelList2'>
                             Cancel
                         </button>
                     </div>
@@ -203,7 +164,7 @@
                     </h1>
                 </div>
 
-                <div class="projectContainer sideBarContainer">
+                <div class="monthContainer sideBarContainer">
                     <svg class="project" width="24" height="24" viewBox="0 0 24 24">
                         <g fill="currentColor" fill-rule="nonzero">
                             <path
@@ -216,14 +177,14 @@
                         </g>
                     </svg>
                     <h1>
-                        Project
+                        Month
                     </h1>
                 </div>
             </div>
 
             <div class="sideBarTwo">
                 <div class="projectDefault">
-                    <i id='arrow' class="fas fa-chevron-right">></i>
+                    <p id='arrow'>➡</p>
 
                     <h1>
                         Projects
@@ -267,7 +228,6 @@
         </div>
     </main>
 
-    <script src="https://kit.fontawesome.com/1c4659f5c2.js" crossorigin="anonymous"></script>
     <script src='main.js' defer></script>
 </body>
 </html>

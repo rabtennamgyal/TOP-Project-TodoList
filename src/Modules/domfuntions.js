@@ -78,6 +78,35 @@ function renderProjectListElement(projectTitle) {
 }
 
 
+// 5. Function to create a new todolist element
+function renderTodoListElement(title, description, priority, duedate) {
+    const pageContent = document.querySelector('.pageContent')
+
+    const todoElement = document.createElement('div')
+    todoElement.classList.add('todoStyle')
+    todoElement.innerHTML = `
+        <div class='divOne'>
+            <div class='divOneOne'>
+                <p>${title}</p>
+                <p>${priority}</p>
+                <p>${duedate}</p>
+            </div>
+    
+            <div class='divOneTwo'>
+                <button class='delete' id='deleteTodo'><i class="far fa-trash-alt"></i></button>
+                <button class='edit' id='editTodo'><i class="far fa-edit"></i></button>
+            </div>
+        </div>
+        
+        <div class='divTwo'>
+            <p>${description}</p>
+        </div>
+    `
+
+    pageContent.appendChild(todoElement)
+}
 
 
-export { renderNewPage, renderPage, showPage, renderProjectListElement }
+
+
+export { renderNewPage, renderPage, showPage, renderProjectListElement, renderTodoListElement }

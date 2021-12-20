@@ -1,6 +1,6 @@
 // This module will take care of all the DOM related functionality.
 import { Todo, Project, ProjectManager } from './Factory'
-import { renderNewPage, renderPage, showPage, renderProjectListElement } from './domfuntions'
+import { renderNewPage, renderPage, showPage, renderProjectListElement, renderTodoListElement } from './domfuntions'
 
 
 // Buttons to change Pages betwenn Inbox, Today & Projects.
@@ -22,32 +22,43 @@ showPage(currentPage)
 
 
 
-function createNewProject() {
-    const title = document.getElementById('projectName').value
-    const newProject = new Project(title)
-    theProjectManager.addProject(newProject)
-    renderProjectListElement(title)
+const myProjectManager = new ProjectManager('myProjectManager')
+
+myProjectManager.addProject(Project('Inbox'))
+myProjectManager.addProject(Project('Today'))
+myProjectManager.addProject(Project('Month'))
+
+
+
+function todolistCreation() {
+    const projectTitle = document.getElementById('todoProjects').value
+    const allTitles = myProjectManager.projectsArray.map(el => el.title)
+
+    const todoTitle = document.getElementById('todoTitle').value
+    const todoDescription = document.getElementById('todoDescription').value
+    const todoPriority = document.getElementById('todoPriority').value
+    const todoDueDate = document.getElementById('todoDueDate').value
+
+
+    for (let i = 0; i < allTitles.length; i++) {
+        if (allTitles[i] === projectTitle) {
+            myProjectManager.projectsArray[i].addTodo(Todo(todoTitle, todoDescription, todoPriority, todoDueDate))
+            renderPage(renderNewPage(allTitles[i]))
+            renderTodoListElement(todoTitle, todoDescription, todoPriority, todoDueDate)
+        }
+    }
 }
 
 
-createTodoList.addEventListener('click', () => {
-    createNewList()
-})
 
-
-createProject.addEventListener('click', () => {
-    createNewProject()
-})
+function projectCreation() {
+    const projectTitle = document.querySelector('.projectName').value
+    myProjectManager.addProject(Project(projectTitle))
+    renderProjectListElement(projectTitle)
+}
 
 
 
-window.addEventListener('load', () => {
-    if (!localStorage.getItem('Page')) {
-        renderPage(renderNewPage('Inbox'))
-    } else {
-        return
-    }
-})
 
 
 inboxBtn.addEventListener('click', () => {
@@ -63,3 +74,27 @@ todayBtn.addEventListener('click', () => {
 monthBtn.addEventListener('click', () => {
     renderPage(renderNewPage('Month'))
 })
+
+
+// 1. Todolist & Project Creation Event Listeners
+createTodoList.addEventListener('click', () => {
+    todolistCreation()
+})
+
+
+createProject.addEventListener('click', () => {
+    projectCreation()
+})
+
+
+
+
+
+
+// window.addEventListener('load', () => {
+//     if (!localStorage.getItem('Page')) {
+//         renderPage(renderNewPage('Inbox'))
+//     } else {
+//         return
+//     }
+// })

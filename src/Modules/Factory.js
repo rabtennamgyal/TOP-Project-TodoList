@@ -10,6 +10,7 @@ function Project(title) {
     const addTodo = (todo) => todos.push(todo)
 
     return {
+        todos,
         title, 
         addTodo
     }  

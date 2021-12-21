@@ -7,7 +7,9 @@ function Todo(title, description, priority, dueDate) {
 function Project(title) {
     let todos = []
 
-    const addTodo = (todo) => todos.push(todo)
+    const addTodo = (todo) => {
+        todos.push(todo)
+    }
 
     return {
         todos,
@@ -20,17 +22,12 @@ function Project(title) {
 function ProjectManager(title) {
     let projectsArray = []
 
-    const addProject = (project) => projectsArray.push(project)
-
     return {
         projectsArray,
-        title,
-        addProject
+        title
     }
 }
 
 
 
 export { Todo, Project, ProjectManager }
-
-

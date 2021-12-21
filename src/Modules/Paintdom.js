@@ -1,7 +1,7 @@
 // This module will take care of all the DOM related functionality.
 import { Todo, Project, ProjectManager } from './Factory'
 import { renderNewPage, renderPage, showPage, renderProjectListElement, renderTodoListElement } from './domfuntions'
-
+import { setProject, delProject } from './Storage'
 
 // Buttons to change Pages betwenn Inbox, Today & Projects.
 const inboxBtn = document.querySelector('.inboxContainer')
@@ -11,8 +11,10 @@ const monthBtn = document.querySelector('.monthContainer')
 
 // Create New Todolist Button
 const createTodoList = document.getElementById('addList')
-// Create New Project Button
+// Create Project Button
 const createProject = document.getElementById('addProject')
+// Delete Project Button
+const deleteProject = document.querySelector('.projectList')
 
 
 // Get the current page from the local storage.
@@ -21,13 +23,16 @@ let currentPage = localStorage.getItem('Page')
 showPage(currentPage)
 
 
-
+// 1. The Project Manager
 const myProjectManager = new ProjectManager('myProjectManager')
 
-myProjectManager.addProject(Project('Inbox'))
-myProjectManager.addProject(Project('Today'))
-myProjectManager.addProject(Project('Month'))
+// 2. Array of all Project
+let allProjectArray = localStorage.getItem('AllProject') ? JSON.parse(localStorage.getItem('AllProject')) : myProjectManager.projectsArray
 
+
+allProjectArray.forEach(el => {
+    renderProjectListElement(el.title)
+})
 
 
 function todolistCreation() {
@@ -50,15 +55,20 @@ function todolistCreation() {
 }
 
 
-
 function projectCreation() {
     const projectTitle = document.querySelector('.projectName').value
-    myProjectManager.addProject(Project(projectTitle))
+    const newProject = Project(projectTitle)
+    setProject(newProject, allProjectArray)
     renderProjectListElement(projectTitle)
 }
 
 
-
+function projectDeletion(e) {
+    const list = e.target.parentNode.parentNode
+    const projectTitle = e.target.parentNode.parentNode.firstChild.textContent
+    delProject(projectTitle)
+    list.parentNode.removeChild(list)
+}
 
 
 inboxBtn.addEventListener('click', () => {
@@ -76,17 +86,27 @@ monthBtn.addEventListener('click', () => {
 })
 
 
-// 1. Todolist & Project Creation Event Listeners
+// #todoList Creation
 createTodoList.addEventListener('click', () => {
     todolistCreation()
 })
 
-
+// #Project Creation
 createProject.addEventListener('click', () => {
     projectCreation()
 })
 
+// #Project Deletion
+deleteProject.addEventListener('click', (e) => {
+    if (e.target.classList.contains('deleteProjectBtn')) {
+        projectDeletion(e)
+    }
+})
 
+
+
+
+export { allProjectArray }
 
 
 

@@ -1,3 +1,4 @@
+import { cleanInput } from "./domfuntions"
 
 
 // Project list animation
@@ -107,6 +108,7 @@ edit.addEventListener('click', () => {
 
 cancel.addEventListener('click', () => {
     module.style.display = 'none'
+    cleanInput()
 })
 
 

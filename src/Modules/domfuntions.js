@@ -40,6 +40,7 @@ const renderNewPage = (title) => {
 
 
 // RenderPage & ShowPage do similar things. But renderPage deals with the local storage.
+
 // 2. Function to render a page to the dom
 function renderPage(page) {
     const content = document.querySelector('.content')
@@ -62,19 +63,23 @@ function showPage(el) {
 
 // 4. Function to create a new projectlist element
 function renderProjectListElement(projectTitle) {
-    const main = document.querySelector('.projectList')
+    if (projectTitle === 'Inbox' || projectTitle === 'Today' || projectTitle === 'Month') {
+        return
+    } else {
+        const main = document.querySelector('.projectList')
 
-    const list = document.createElement('div')
-    list.classList.add('list')
-    const divOne = document.createElement('p')
-    divOne.textContent = projectTitle
-    const divTwo = document.createElement('p')
-    divTwo.classList.add('deleteProject')
-    divTwo.innerHTML = '<h1 class="deleteProjectBtn">x</h1>'
-    list.appendChild(divOne)
-    list.appendChild(divTwo)
-    
-    main.appendChild(list)
+        const list = document.createElement('div')
+        list.classList.add('list')
+        const divOne = document.createElement('p')
+        divOne.textContent = projectTitle
+        const divTwo = document.createElement('p')
+        divTwo.classList.add('deleteProject')
+        divTwo.innerHTML = '<h1 class="deleteProjectBtn">x</h1>'
+        list.appendChild(divOne)
+        list.appendChild(divTwo)
+        
+        main.appendChild(list)
+    }
 }
 
 
@@ -93,8 +98,8 @@ function renderTodoListElement(title, description, priority, duedate) {
             </div>
     
             <div class='divOneTwo'>
-                <button class='delete' id='deleteTodo'><i class="far fa-trash-alt"></i></button>
-                <button class='edit' id='editTodo'><i class="far fa-edit"></i></button>
+                <button class='delete' id='deleteTodo'>❌</button>
+                <button class='edit' id='editTodo'>🔄</button>
             </div>
         </div>
         
@@ -107,6 +112,36 @@ function renderTodoListElement(title, description, priority, duedate) {
 }
 
 
+// 6. Function to clean the input field
+function cleanInput() {
+    const todoTitle = document.getElementById('todoTitle').value = ''
+    const todoDescription = document.getElementById('todoDescription').value = ''
+    const todoPriority = document.getElementById('todoPriority').value = ''
+    const todoDueDate = document.getElementById('todoDueDate').value = ''
+    const projectTitle = document.getElementById('todoProjects').value = ''
+}
 
 
-export { renderNewPage, renderPage, showPage, renderProjectListElement, renderTodoListElement }
+// 7. Function to delete every dom element in a div
+function deleteAll(parent) {
+    while (parent.firstChild) {
+        parent.removeChild(parent.firstChild);
+    }
+}
+
+
+// 8. Function to create new options 
+function createOptions(projectTitle) {
+    let allOptions = document.getElementById('todoProjects')
+
+    let newOption = new Option(projectTitle, projectTitle)
+
+    allOptions.add(newOption, null)
+}
+
+
+
+export { 
+    renderNewPage, renderPage, showPage, renderProjectListElement, 
+    renderTodoListElement, cleanInput, deleteAll, createOptions
+}

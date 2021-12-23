@@ -36,9 +36,16 @@ const delList = (index, listTitle) => {
 }
 
 
+// #Function to edit list in localstorage
+const editList = (index, editedList) => {
+    console.log(allProjectArray[index].todos)
+}
+
+
+
 const setOption = () => {
     console.log('options')
 }
 
 
-export { setCurrentTitle, setProject, delProject, setList, delList, setOption }
+export { setCurrentTitle, setProject, delProject, setList, delList, editList, setOption }

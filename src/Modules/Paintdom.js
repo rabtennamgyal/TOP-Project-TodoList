@@ -5,7 +5,7 @@ import {
     renderProjectListElement, renderTodoListElement,
     cleanInput, deleteAll, createOptions
 } from './domfuntions'
-import { setCurrentTitle, setProject, delProject, setList, setOption, delList } from './Storage'
+import { setCurrentTitle, setProject, delProject, setList, setOption, delList, editList } from './Storage'
 
 
 // Buttons to change Pages betwenn Inbox, Today & Projects.
@@ -16,8 +16,13 @@ const monthBtn = document.querySelector('.monthContainer')
 
 // Create New Todolist Button
 const createTodoList = document.getElementById('addList')
-// Delete Project Button
+// Delete Todolist Button
 const deleteTodoList = document.querySelector('.content')
+// Edit Todolist Button
+// 1. Button to Open Modal 
+const editTodoList1 = document.querySelector('.content')
+// 2. Button to edit the Todolist
+const editTodoList2 = document.getElementById('editList')
 // Create Project Button
 const createProject = document.getElementById('addProject')
 // Delete Project Button
@@ -97,6 +102,24 @@ function todoListDeletion(e) {
             delList(i, listTitle)
             const list = e.target.parentNode.parentNode.parentNode
             list.parentNode.removeChild(list)
+        }
+    }
+}
+
+
+function todoListEdition() {
+    const allTitles = allProjectArray.map(el => el.title)
+
+    const todoTitle = document.getElementById('todoTitle').value
+    const todoDescription = document.getElementById('todoDescription').value
+    const todoPriority = document.getElementById('todoPriority').value
+    const todoDueDate = document.getElementById('todoDueDate').value
+    const todoProjects = document.getElementById('todoProjects').value
+
+    for (let i = 0; i < allTitles.length; i++) {
+        if (allTitles[i] === currentTitle) {
+            const editedList = Todo(todoTitle, todoDescription, todoPriority, todoDueDate)
+            editList(i, editedList)      
         }
     }
 }
@@ -231,6 +254,25 @@ deleteTodoList.addEventListener('click', (e) => {
 })
 
 
+// #todolist Edition
+// 1. Open the module to edit the list
+editTodoList1.addEventListener('click', (e) => {
+    if (e.target.classList.contains('edit')) {
+        const modules = document.querySelector('.module')
+        const add = document.getElementById('addList')
+        const edit = document.getElementById('editList')
+
+        modules.style.display = 'grid'
+        add.style.display = 'none'
+        edit.style.display = 'block'
+    }
+})
+// 2. Edit the actual todolist
+editTodoList2.addEventListener('click', () => {
+    todoListEdition()
+})
+
+
 // #Project Creation
 createProject.addEventListener('click', () => {
     projectCreation()
@@ -242,7 +284,15 @@ deleteProject.addEventListener('click', (e) => {
     if (e.target.classList.contains('deleteProjectBtn')) {
         projectDeletion(e)
         renderPage(renderNewPage('Inbox'))
-        // Maybe need to also delete the options value
+        currentTitle = 'Inbox'
+        allProjectArray.forEach(element => {
+            if (element.title === currentTitle) {
+                element.todos.forEach(el => {
+                    renderTodoListElement(el.title, el.description, el.priority, el.dueDate)
+                })
+            }
+        })
+        
     }
 })
 

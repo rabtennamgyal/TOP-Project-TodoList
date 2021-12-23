@@ -133,15 +133,23 @@ function deleteAll(parent) {
 // 8. Function to create new options 
 function createOptions(projectTitle) {
     let allOptions = document.getElementById('todoProjects')
-
-    let newOption = new Option(projectTitle, projectTitle)
-
+    const newOption = new Option(projectTitle, projectTitle)
     allOptions.add(newOption, null)
+    return newOption
 }
 
+
+//   Function to render options 
+function renderOptions(options) {
+    const parent = document.getElementById('todoProjects')
+    const option = document.createElement('option')
+    option.innerHTML = `<option value=${options}>${options}</option>`
+    parent.appendChild(option)
+}
 
 
 export { 
     renderNewPage, renderPage, showPage, renderProjectListElement, 
-    renderTodoListElement, cleanInput, deleteAll, createOptions
+    renderTodoListElement, cleanInput, deleteAll, createOptions,
+    renderOptions
 }

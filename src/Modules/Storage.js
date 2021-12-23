@@ -1,5 +1,4 @@
-
-import { allProjectArray } from "./Paintdom"
+import { allProjectArray, allOptions } from "./Paintdom"
 
 
 const setCurrentTitle = (title) => {
@@ -45,10 +44,20 @@ const editList = (index, editedList, editedIndex) => {
 }
 
 
-
-const setOption = () => {
-    console.log('options')
+// #Function to save options in localstorage
+const setOption = (options) => {
+    allOptions.push(options)
+    localStorage.setItem('AllOptions', JSON.stringify(allOptions))
 }
 
 
-export { setCurrentTitle, setProject, delProject, setList, delList, editList, setOption }
+// #Function to delete options from localstorage
+const delOptions = (options) => {
+    let allOptions = JSON.parse(localStorage.getItem('AllOptions')).filter(el => el !== options)
+    console.log(options)
+    console.log(allOptions)
+    localStorage.setItem('AllOptions', JSON.stringify(allOptions))
+}
+
+
+export { setCurrentTitle, setProject, delProject, setList, delList, editList, setOption, delOptions }

@@ -3,9 +3,9 @@ import { Todo, Project, ProjectManager } from './Factory'
 import { 
     renderNewPage, renderPage, showPage, 
     renderProjectListElement, renderTodoListElement,
-    cleanInput, deleteAll, createOptions
+    cleanInput, deleteAll, createOptions, renderOptions
 } from './domfuntions'
-import { setCurrentTitle, setProject, delProject, setList, setOption, delList, editList } from './Storage'
+import { setCurrentTitle, setProject, delProject, setList, setOption, delOptions, delList, editList } from './Storage'
 
 
 // Buttons to change Pages betwenn Inbox, Today & Projects.
@@ -45,6 +45,8 @@ const myProjectManager = new ProjectManager('myProjectManager')
 // 2. Array of all Project
 //localStorage.setItem('AllProject', [])
 let allProjectArray = localStorage.getItem('AllProject') ? JSON.parse(localStorage.getItem('AllProject')) : myProjectManager.projectsArray
+// 3. Array of all options
+let allOptions = localStorage.getItem('AllOptions') ? JSON.parse(localStorage.getItem('AllOptions')) : []
 
 // #Rendering All Project Titles on Sidebar
 allProjectArray.forEach(el => {
@@ -59,6 +61,12 @@ allProjectArray.forEach(element => {
             renderTodoListElement(el.title, el.description, el.priority, el.dueDate)
         })
     }
+})
+
+
+// #Rendering all options 
+allOptions.forEach(element => {
+    renderOptions(element)
 })
 
 
@@ -135,8 +143,9 @@ function projectCreation(value) {
         const newProject = Project(projectTitle)
         setProject(newProject, allProjectArray)
         renderProjectListElement(projectTitle)
-        createOptions(projectTitle)
-        setOption()
+        const newOptions = createOptions(projectTitle)
+        const options = newOptions.innerHTML
+        setOption(options)
     }
 }
 
@@ -144,8 +153,11 @@ function projectCreation(value) {
 function projectDeletion(e) {
     const list = e.target.parentNode.parentNode
     const projectTitle = e.target.parentNode.parentNode.firstChild.textContent
+    // Deleting Project
     delProject(projectTitle)
     list.parentNode.removeChild(list)
+    // Deleting Project's Options
+    delOptions(projectTitle)
 }
 
 
@@ -262,10 +274,12 @@ editTodoList1.addEventListener('click', (e) => {
         const modules = document.querySelector('.module')
         const add = document.getElementById('addList')
         const edit = document.getElementById('editList')
+        const inputFive = document.querySelector('.inputFive')
 
         modules.style.display = 'grid'
         add.style.display = 'none'
         edit.style.display = 'block'
+        inputFive.style.display = 'none'
 
         const allTitles = allProjectArray.map(el => el.title)
         const text = e.target.parentNode.parentNode.childNodes[1].childNodes[1].textContent
@@ -287,7 +301,9 @@ editTodoList1.addEventListener('click', (e) => {
 })
 // 2. Edit the actual todolist
 editTodoList2.addEventListener('click', (e) => {
+    const list = document.querySelector('.pageContent')
     todoListEdition()
+    deleteAll(list)
     allProjectArray.forEach(element => {
         if (element.title === currentTitle) {
             element.todos.forEach(el => {
@@ -322,5 +338,4 @@ deleteProject.addEventListener('click', (e) => {
 })
 
 
-
-export { allProjectArray }
+export { allProjectArray, allOptions }

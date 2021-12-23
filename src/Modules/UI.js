@@ -107,7 +107,9 @@ edit.addEventListener('click', () => {
 
 
 cancel.addEventListener('click', () => {
+    const projectInput = document.querySelector('.inputFive')
     module.style.display = 'none'
+    projectInput.style.display = 'grid'
     cleanInput()
 })
 

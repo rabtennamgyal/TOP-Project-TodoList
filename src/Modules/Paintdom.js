@@ -32,6 +32,7 @@ const ListElement = document.querySelector('.projectList')
 
 
 // Get the current page from the local storage.
+let editedIndex
 let currentPage = localStorage.getItem('Page')
 let currentTitle = localStorage.getItem('CurrentTitle') ? localStorage.getItem('CurrentTitle') : 'Inbox'
 // & append it to the DOM.
@@ -119,7 +120,7 @@ function todoListEdition() {
     for (let i = 0; i < allTitles.length; i++) {
         if (allTitles[i] === currentTitle) {
             const editedList = Todo(todoTitle, todoDescription, todoPriority, todoDueDate)
-            editList(i, editedList)      
+            editList(i, editedList, editedIndex)      
         }
     }
 }
@@ -265,11 +266,35 @@ editTodoList1.addEventListener('click', (e) => {
         modules.style.display = 'grid'
         add.style.display = 'none'
         edit.style.display = 'block'
+
+        const allTitles = allProjectArray.map(el => el.title)
+        const text = e.target.parentNode.parentNode.childNodes[1].childNodes[1].textContent
+
+        for (let i = 0; i < allTitles.length; i++) {
+            if (allTitles[i] === currentTitle) {
+                const arr = allProjectArray[i].todos
+                for (let i = 0; i < arr.length; i++) {
+                    if (arr[i].title === text) {
+                        editedIndex = i
+                    }
+                }
+            }
+        }
+
+
+        //console.log(e.target.parentNode.parentNode.parentNode.parentNode)
     }
 })
 // 2. Edit the actual todolist
-editTodoList2.addEventListener('click', () => {
+editTodoList2.addEventListener('click', (e) => {
     todoListEdition()
+    allProjectArray.forEach(element => {
+        if (element.title === currentTitle) {
+            element.todos.forEach(el => {
+                renderTodoListElement(el.title, el.description, el.priority, el.dueDate)
+            })
+        }
+    })
 })
 
 
@@ -299,4 +324,3 @@ deleteProject.addEventListener('click', (e) => {
 
 
 export { allProjectArray }
-

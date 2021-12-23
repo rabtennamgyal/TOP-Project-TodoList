@@ -37,8 +37,11 @@ const delList = (index, listTitle) => {
 
 
 // #Function to edit list in localstorage
-const editList = (index, editedList) => {
-    console.log(allProjectArray[index].todos)
+const editList = (index, editedList, editedIndex) => {
+    let changedTodos = allProjectArray[index].todos
+    let newArr = changedTodos.splice(editedIndex, 1, editedList)
+    allProjectArray[index].todos = changedTodos
+    localStorage.setItem('AllProject', JSON.stringify(allProjectArray))
 }
 
 

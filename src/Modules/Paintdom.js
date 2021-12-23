@@ -5,7 +5,7 @@ import {
     renderProjectListElement, renderTodoListElement,
     cleanInput, deleteAll, createOptions
 } from './domfuntions'
-import { setCurrentTitle, setProject, delProject, setList } from './Storage'
+import { setCurrentTitle, setProject, delProject, setList, setOption, delList } from './Storage'
 
 
 // Buttons to change Pages betwenn Inbox, Today & Projects.
@@ -16,6 +16,8 @@ const monthBtn = document.querySelector('.monthContainer')
 
 // Create New Todolist Button
 const createTodoList = document.getElementById('addList')
+// Delete Project Button
+const deleteTodoList = document.querySelector('.content')
 // Create Project Button
 const createProject = document.getElementById('addProject')
 // Delete Project Button
@@ -38,7 +40,6 @@ const myProjectManager = new ProjectManager('myProjectManager')
 //localStorage.setItem('AllProject', [])
 let allProjectArray = localStorage.getItem('AllProject') ? JSON.parse(localStorage.getItem('AllProject')) : myProjectManager.projectsArray
 
-
 // #Rendering All Project Titles on Sidebar
 allProjectArray.forEach(el => {
     renderProjectListElement(el.title)
@@ -49,7 +50,7 @@ allProjectArray.forEach(el => {
 allProjectArray.forEach(element => {
     if (element.title === currentTitle) {
         element.todos.forEach(el => {
-            renderTodoListElement(el.title, el.description, el.priority, el.duedate)
+            renderTodoListElement(el.title, el.description, el.priority, el.dueDate)
         })
     }
 })
@@ -72,16 +73,30 @@ function todolistCreation() {
             const newTodo = Todo(todoTitle, todoDescription, todoPriority, todoDueDate)
             setList(i, newTodo)
             deleteAll(parent)
+            renderPage(renderNewPage(allTitles[i]))
+            setCurrentTitle(projectTitle)
+            currentTitle = projectTitle
             allProjectArray.forEach(element => {
                 if (element.title === currentTitle) {
                     element.todos.forEach(el => {
-                        renderTodoListElement(el.title, el.description, el.priority, el.duedate)
+                        renderTodoListElement(el.title, el.description, el.priority, el.dueDate)
                     })
                 }
             })
-            // Need to render existing page probably
-            renderPage(renderNewPage(allTitles[i]))
-            //renderTodoListElement(todoTitle, todoDescription, todoPriority, todoDueDate)
+        }
+    }
+}
+
+
+function todoListDeletion(e) {
+    const listTitle = e.target.parentNode.parentNode.childNodes[1].childNodes[1].textContent
+    const allTitles = allProjectArray.map(el => el.title)
+
+    for (let i = 0; i < allTitles.length; i++) {
+        if (allTitles[i] === currentTitle) {
+            delList(i, listTitle)
+            const list = e.target.parentNode.parentNode.parentNode
+            list.parentNode.removeChild(list)
         }
     }
 }
@@ -97,6 +112,7 @@ function projectCreation(value) {
         setProject(newProject, allProjectArray)
         renderProjectListElement(projectTitle)
         createOptions(projectTitle)
+        setOption()
     }
 }
 
@@ -148,7 +164,7 @@ inboxBtn.addEventListener('click', () => {
     allProjectArray.forEach(element => {
         if (element.title === currentTitle) {
             element.todos.forEach(el => {
-                renderTodoListElement(el.title, el.description, el.priority, el.duedate)
+                renderTodoListElement(el.title, el.description, el.priority, el.dueDate)
             })
         }
     })
@@ -162,7 +178,7 @@ todayBtn.addEventListener('click', () => {
     allProjectArray.forEach(element => {
         if (element.title === currentTitle) {
             element.todos.forEach(el => {
-                renderTodoListElement(el.title, el.description, el.priority, el.duedate)
+                renderTodoListElement(el.title, el.description, el.priority, el.dueDate)
             })
         }
     })
@@ -176,7 +192,7 @@ monthBtn.addEventListener('click', () => {
     allProjectArray.forEach(element => {
         if (element.title === currentTitle) {
             element.todos.forEach(el => {
-                renderTodoListElement(el.title, el.description, el.priority, el.duedate)
+                renderTodoListElement(el.title, el.description, el.priority, el.dueDate)
             })
         }
     })
@@ -192,7 +208,7 @@ ListElement.addEventListener('click', (e) => {
         allProjectArray.forEach(element => {
             if (element.title === currentTitle) {
                 element.todos.forEach(el => {
-                    renderTodoListElement(el.title, el.description, el.priority, el.duedate)
+                    renderTodoListElement(el.title, el.description, el.priority, el.dueDate)
                 })
             }
         })
@@ -204,6 +220,14 @@ ListElement.addEventListener('click', (e) => {
 createTodoList.addEventListener('click', () => {
     todolistCreation()
     cleanInput()
+})
+
+
+// #todolist Deletion
+deleteTodoList.addEventListener('click', (e) => {
+    if (e.target.classList.contains('delete')) {
+        todoListDeletion(e)
+    }
 })
 
 

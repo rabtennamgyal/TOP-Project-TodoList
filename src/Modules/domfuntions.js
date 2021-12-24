@@ -139,14 +139,13 @@ function createOptions(projectTitle) {
 }
 
 
-//   Function to render options 
+//  9. Function to render options 
 function renderOptions(options) {
     const parent = document.getElementById('todoProjects')
     const option = document.createElement('option')
     option.innerHTML = `<option value=${options}>${options}</option>`
     parent.appendChild(option)
 }
-
 
 
 export { 

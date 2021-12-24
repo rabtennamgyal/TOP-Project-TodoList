@@ -9,6 +9,7 @@ import { setCurrentTitle, setProject, delProject, setList, setOption, delOptions
 
 
 // Buttons to change Pages betwenn Inbox, Today & Projects.
+const homeIcon = document.getElementById('homeIcon')
 const inboxBtn = document.querySelector('.inboxContainer')
 const todayBtn = document.querySelector('.dayContainer')
 const monthBtn = document.querySelector('.monthContainer')
@@ -52,8 +53,6 @@ let allOptions = localStorage.getItem('AllOptions') ? JSON.parse(localStorage.ge
 allProjectArray.forEach(el => {
     renderProjectListElement(el.title)
 })
-
-
 // #Rendering all the todolist
 allProjectArray.forEach(element => {
     if (element.title === currentTitle) {
@@ -62,8 +61,6 @@ allProjectArray.forEach(element => {
         })
     }
 })
-
-
 // #Rendering all options 
 allOptions.forEach(element => {
     renderOptions(element)
@@ -153,11 +150,17 @@ function projectCreation(value) {
 function projectDeletion(e) {
     const list = e.target.parentNode.parentNode
     const projectTitle = e.target.parentNode.parentNode.firstChild.textContent
+    const selectBox = document.getElementById('todoProjects')
     // Deleting Project
     delProject(projectTitle)
     list.parentNode.removeChild(list)
-    // Deleting Project's Options
+    // Deleting Project's Options 
     delOptions(projectTitle)
+    for (let i = 0; i < allOptions.length; i++) {
+        if (allOptions[i] === projectTitle) {
+            selectBox.remove(4 + i)
+        }
+    }
 }
 
 
@@ -190,6 +193,20 @@ window.addEventListener('load', () => {
     } else {
         return
     }
+})
+
+
+homeIcon.addEventListener('click', () => {
+    renderPage(renderNewPage('Inbox'))
+    setCurrentTitle('Inbox')
+    currentTitle = 'Inbox'
+    allProjectArray.forEach(element => {
+        if (element.title === currentTitle) {
+            element.todos.forEach(el => {
+                renderTodoListElement(el.title, el.description, el.priority, el.dueDate)
+            })
+        }
+    })
 })
 
 
@@ -290,13 +307,20 @@ editTodoList1.addEventListener('click', (e) => {
                 for (let i = 0; i < arr.length; i++) {
                     if (arr[i].title === text) {
                         editedIndex = i
+                        
+                        const savedTitle = arr[i].title
+                        const savedDescription = arr[i].description
+                        const savedPriority = arr[i].priority
+                        const savedDueDate = arr[i].dueDate
+
+                        const todoTitle = document.getElementById('todoTitle').value = savedTitle
+                        const todoDescription = document.getElementById('todoDescription').value = savedDescription
+                        const todoPriority = document.getElementById('todoPriority').value = savedPriority
+                        const todoDueDate = document.getElementById('todoDueDate').value = savedDueDate
                     }
                 }
             }
         }
-
-
-        //console.log(e.target.parentNode.parentNode.parentNode.parentNode)
     }
 })
 // 2. Edit the actual todolist
@@ -325,6 +349,7 @@ deleteProject.addEventListener('click', (e) => {
     if (e.target.classList.contains('deleteProjectBtn')) {
         projectDeletion(e)
         renderPage(renderNewPage('Inbox'))
+        setCurrentTitle('Inbox')
         currentTitle = 'Inbox'
         allProjectArray.forEach(element => {
             if (element.title === currentTitle) {
@@ -333,7 +358,6 @@ deleteProject.addEventListener('click', (e) => {
                 })
             }
         })
-        
     }
 })
 

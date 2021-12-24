@@ -54,8 +54,6 @@ const setOption = (options) => {
 // #Function to delete options from localstorage
 const delOptions = (options) => {
     let allOptions = JSON.parse(localStorage.getItem('AllOptions')).filter(el => el !== options)
-    console.log(options)
-    console.log(allOptions)
     localStorage.setItem('AllOptions', JSON.stringify(allOptions))
 }
 

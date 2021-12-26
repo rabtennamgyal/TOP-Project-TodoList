@@ -3,8 +3,7 @@ import { Todo, Project, ProjectManager } from './Factory'
 import { 
     renderNewPage, renderPage, showPage, 
     renderProjectListElement, renderTodoListElement,
-    cleanInput, deleteAll, createOptions, renderOptions, 
-    removeSideBar
+    cleanInput, deleteAll, createOptions, renderOptions
 } from './domfuntions'
 import { setCurrentTitle, setProject, delProject, setList, setOption, delOptions, delList, editList } from './Storage'
 

@@ -24,5 +24,4 @@ function ProjectManager(title) {
 }
 
 
-
 export { Todo, Project, ProjectManager }

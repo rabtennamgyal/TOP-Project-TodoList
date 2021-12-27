@@ -71,8 +71,6 @@ plusIcon.addEventListener("click", () => {
 
   if (sideBar.classList.contains("slideLeftPhone")) {
     sideBar.classList.remove("slideLeftPhone");
-  } else {
-    sideBar.classList.add("slideLeftPhone");
   }
 
   module.style.display = "grid";

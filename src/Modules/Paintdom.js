@@ -3,7 +3,7 @@ import { Todo, Project, ProjectManager } from './Factory'
 import { 
     renderNewPage, renderPage, showPage, 
     renderProjectListElement, renderTodoListElement,
-    cleanInput, deleteAll, createOptions, renderOptions
+    cleanInput, deleteAll, createOptions, renderOptions, renderAlert
 } from './domfuntions'
 import { setCurrentTitle, setProject, delProject, setList, setOption, delOptions, delList, editList } from './Storage'
 
@@ -20,7 +20,6 @@ const createTodoList = document.getElementById('addList')
 // Delete Todolist Button
 const deleteTodoList = document.querySelector('.content')
 // Edit Todolist Button
-// 1. Button to Open Modal 
 const editTodoList1 = document.querySelector('.content')
 // 2. Button to edit the Todolist
 const editTodoList2 = document.getElementById('editList')
@@ -39,6 +38,8 @@ let currentTitle = localStorage.getItem('CurrentTitle') ? localStorage.getItem('
 // & append it to the DOM.
 showPage(currentPage)
 
+// Input exist or not ?
+let inputExist = false
 
 // 1. The Project Manager
 const myProjectManager = new ProjectManager('myProjectManager')
@@ -270,9 +271,25 @@ ListElement.addEventListener('click', (e) => {
 
 
 // #todoList Creation
-createTodoList.addEventListener('click', () => {
-    todolistCreation()
-    cleanInput()
+createTodoList.addEventListener('click', (e) => {
+    const todoTitle = document.getElementById('todoTitle').value
+    const todoDescription = document.getElementById('todoDescription').value
+    const todoPriority = document.getElementById('todoPriority').value
+    const todoDueDate = document.getElementById('todoDueDate').value
+    const projectTitle = document.getElementById('todoProjects').value
+
+    if (!todoTitle || !todoDescription || !todoPriority || !todoDueDate || !projectTitle) {
+        renderAlert()
+
+        const btn = document.getElementById("removeAlert");
+        btn.addEventListener("click", (e) => {
+            const element = e.target.parentNode.parentNode
+            element.parentNode.removeChild(element)
+        });
+    } else {
+        todolistCreation()
+        cleanInput()
+    }
 })
 
 

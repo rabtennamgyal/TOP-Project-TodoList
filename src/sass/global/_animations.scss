@@ -75,3 +75,13 @@
     animation: rotateDown 200ms ease-in-out forwards;
 }
 
+
+@keyframes easeIn {
+    0% {
+        transform: scale(0);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}

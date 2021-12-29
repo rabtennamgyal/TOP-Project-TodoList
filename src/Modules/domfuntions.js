@@ -148,8 +148,28 @@ function renderOptions(options) {
 }
 
 
+// 10. Function to render Alert Box
+function renderAlert() {
+    const mainContent = document.getElementById('mainContent')
+    const alertBox = document.createElement('div')
+    alertBox.classList.add('alertStyle')
+    alertBox.innerHTML = `
+    <div id='alertOne'>
+        <h1>Please fill everything</h1>
+    </div>
+    <div id='alertTwo'>
+        <button id='removeAlert'>
+            <p>👍</p>
+        </button>
+    </div>
+    `
+    mainContent.appendChild(alertBox)
+}
+
+
+
 export { 
     renderNewPage, renderPage, showPage, renderProjectListElement, 
     renderTodoListElement, cleanInput, deleteAll, createOptions,
-    renderOptions
+    renderOptions, renderAlert
 }

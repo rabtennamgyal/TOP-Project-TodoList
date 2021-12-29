@@ -89,7 +89,8 @@ function setBtnOne() {
   }
 }
 
-setInterval(() => {
+
+setInterval((e) => {
   setBtnOne();
 });
 

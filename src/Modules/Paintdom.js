@@ -38,8 +38,6 @@ let currentTitle = localStorage.getItem('CurrentTitle') ? localStorage.getItem('
 // & append it to the DOM.
 showPage(currentPage)
 
-// Input exist or not ?
-let inputExist = false
 
 // 1. The Project Manager
 const myProjectManager = new ProjectManager('myProjectManager')
@@ -121,13 +119,34 @@ function todoListEdition() {
     const todoDescription = document.getElementById('todoDescription').value
     const todoPriority = document.getElementById('todoPriority').value
     const todoDueDate = document.getElementById('todoDueDate').value
-    const todoProjects = document.getElementById('todoProjects').value
 
     for (let i = 0; i < allTitles.length; i++) {
         if (allTitles[i] === currentTitle) {
             const editedList = Todo(todoTitle, todoDescription, todoPriority, todoDueDate)
             editList(i, editedList, editedIndex)      
         }
+    }
+}
+
+
+function createTheList() {
+    const todoTitle = document.getElementById('todoTitle').value
+    const todoDescription = document.getElementById('todoDescription').value
+    const todoPriority = document.getElementById('todoPriority').value
+    const todoDueDate = document.getElementById('todoDueDate').value
+    const projectTitle = document.getElementById('todoProjects').value
+
+    if (!todoTitle || !todoDescription || !todoPriority || !todoDueDate || !projectTitle) {
+        renderAlert()
+
+        const btn = document.getElementById("removeAlert");
+        btn.addEventListener("click", (e) => {
+            const element = e.target.parentNode.parentNode
+            element.parentNode.removeChild(element)
+        });
+    } else {
+        todolistCreation()
+        cleanInput()
     }
 }
 
@@ -270,26 +289,9 @@ ListElement.addEventListener('click', (e) => {
 })
 
 
-// #todoList Creation
-createTodoList.addEventListener('click', (e) => {
-    const todoTitle = document.getElementById('todoTitle').value
-    const todoDescription = document.getElementById('todoDescription').value
-    const todoPriority = document.getElementById('todoPriority').value
-    const todoDueDate = document.getElementById('todoDueDate').value
-    const projectTitle = document.getElementById('todoProjects').value
-
-    if (!todoTitle || !todoDescription || !todoPriority || !todoDueDate || !projectTitle) {
-        renderAlert()
-
-        const btn = document.getElementById("removeAlert");
-        btn.addEventListener("click", (e) => {
-            const element = e.target.parentNode.parentNode
-            element.parentNode.removeChild(element)
-        });
-    } else {
-        todolistCreation()
-        cleanInput()
-    }
+// #todoList Creation ( Desktop )
+createTodoList.addEventListener('click', () => {
+    createTheList()
 })
 
 

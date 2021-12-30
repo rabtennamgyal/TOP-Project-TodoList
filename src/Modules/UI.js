@@ -90,9 +90,10 @@ function setBtnOne() {
 }
 
 
-setInterval((e) => {
+setInterval(() => {
   setBtnOne();
 });
+
 
 add.addEventListener("click", () => {
   module.style.display = "none";

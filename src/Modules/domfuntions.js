@@ -167,7 +167,6 @@ function renderAlert() {
 }
 
 
-
 export { 
     renderNewPage, renderPage, showPage, renderProjectListElement, 
     renderTodoListElement, cleanInput, deleteAll, createOptions,

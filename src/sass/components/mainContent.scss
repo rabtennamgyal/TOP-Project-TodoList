@@ -8,8 +8,8 @@ main {
         grid-template-columns: 0 1fr;
     }
 
-
     .sideBar {
+        height: 90vh;
         background: #f0f0f0;
         display: grid;
         grid-template-rows: 30% 70%;
